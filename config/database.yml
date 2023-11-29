@@ -82,3 +82,6 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
+  database: synonyms_api_production
+  username: synonyms_api
+  password: <%= ENV["SYNONYMS_API_DATABASE_PASSWORD"] %>
