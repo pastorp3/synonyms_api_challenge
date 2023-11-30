@@ -20,7 +20,8 @@ module Mutations
     private
 
     def generate_token(admin)
-      JWT.encode({  username: admin&.username },Rails.application.secrets.secret_key_base, 'HS256')
+      key = Rails.env.development? ? Rails.application.secrets.secret_key_base : ENV["RAILS_MASTER_KEY"]
+      JWT.encode({  username: admin&.username }, key, 'HS256')
     end
   end
 end

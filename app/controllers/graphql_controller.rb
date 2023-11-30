@@ -15,7 +15,8 @@ class GraphqlController < ApplicationController
     current_admin = false
 
     if authorization_header.present?
-      decoded_token = JWT.decode(authorization_header,  Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
+      key = Rails.env.development? ? Rails.application.secrets.secret_key_base : ENV["RAILS_MASTER_KEY"]
+      decoded_token = JWT.decode(authorization_header,  key, true, algorithm: 'HS256')
       payload = decoded_token.first
 
       if payload['username'].present?
