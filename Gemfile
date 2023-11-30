@@ -38,7 +38,6 @@ gem "bootsnap", require: false
 
 gem 'graphql'
 gem 'jwt'
-gem "graphql"
 
 gem "graphiql-rails"
 
