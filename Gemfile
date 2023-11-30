@@ -37,6 +37,7 @@ gem "bootsnap", require: false
 # gem "rack-cors"
 
 gem 'graphql'
+gem 'devise'
 gem 'jwt'
 
 gem "graphiql-rails"
