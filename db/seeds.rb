@@ -1,1 +1,1 @@
-Admin.create!(username: 'pepe', password: '12345')
+Admin.create!(username: 'admin', password: '$dm!nhola123')

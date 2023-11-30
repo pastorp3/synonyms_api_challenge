@@ -70,6 +70,7 @@ GEM
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    coderay (1.1.3)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.4)
@@ -126,6 +127,9 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.5.4)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     psych (5.1.1.1)
       stringio
     puma (5.6.7)
@@ -201,6 +205,7 @@ DEPENDENCIES
   graphql
   jwt
   pg (~> 1.1)
+  pry (~> 0.14.2)
   puma (~> 5.0)
   rails (~> 7.0.8)
   sprockets (~> 4.0)

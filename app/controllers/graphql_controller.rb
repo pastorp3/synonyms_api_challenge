@@ -10,9 +10,22 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
+
+    authorization_header = request.headers['Authorization']&.split(' ')&.last
+    current_admin = false
+
+    if authorization_header.present?
+      decoded_token = JWT.decode(authorization_header,  Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
+      payload = decoded_token.first
+
+      if payload['username'].present?
+        admin = Admin.find_by(username: payload['username'])
+        current_admin = admin.present?
+      end
+    end
+
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_admin: current_admin,
     }
     result = SynonymsApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result

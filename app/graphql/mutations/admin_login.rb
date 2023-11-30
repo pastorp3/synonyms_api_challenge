@@ -1,21 +1,27 @@
-# app/graphql/mutations/admin_login.rb
 module Mutations
   class AdminLogin < BaseMutation
-    argument :username, String, required: true
+    argument :user, String, required: true
     argument :password, String, required: true
 
     field :token, String, null: true
     field :errors, [String], null: false
 
-    def resolve(username:, password:)
-      admin = Admin.find_by(username: username)
+    def resolve(user:, password:)
+      admin = Admin.find_by(username: user)
 
-      if admin&.password == password
-        token = JWT.encode({ id: admin.id }, Rails.application.secrets.secret_key_base)
+      if admin&.authenticate(password)
+        token = generate_token(admin)
         { token: token, errors: [] }
       else
         { token: nil, errors: ['Invalid username or password'] }
       end
     end
+
+    private
+
+    def generate_token(admin)
+      JWT.encode({  username: admin&.username },Rails.application.secrets.secret_key_base, 'HS256')
+    end
   end
 end
+
