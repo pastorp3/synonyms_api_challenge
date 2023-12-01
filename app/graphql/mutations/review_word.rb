@@ -18,8 +18,6 @@ module Mutations
         authorize_word(word_instance)
       when 'DELETE'
         delete_word(word_instance)
-      else
-        { errors: ['Invalid operation'] }
       end
     end
 

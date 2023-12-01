@@ -15,7 +15,7 @@ class GraphqlController < ApplicationController
     current_admin = false
 
     if authorization_header.present?
-      key = Rails.env.development? ? Rails.application.secrets.secret_key_base : ENV["RAILS_MASTER_KEY"]
+      key = Rails.env.production? ? ENV["RAILS_MASTER_KEY"] : Rails.application.secrets.secret_key_base
       decoded_token = JWT.decode(authorization_header,  key, true, algorithm: 'HS256')
       payload = decoded_token.first
 

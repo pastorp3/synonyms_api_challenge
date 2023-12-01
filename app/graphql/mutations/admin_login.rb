@@ -10,18 +10,11 @@ module Mutations
       admin = Admin.find_by(username: user)
 
       if admin&.authenticate(password)
-        token = generate_token(admin)
+        token = admin&.generate_token
         { token: token, errors: [] }
       else
         { token: nil, errors: ['Invalid username or password'] }
       end
-    end
-
-    private
-
-    def generate_token(admin)
-      key = Rails.env.development? ? Rails.application.secrets.secret_key_base : ENV["RAILS_MASTER_KEY"]
-      JWT.encode({  username: admin&.username }, key, 'HS256')
     end
   end
 end
